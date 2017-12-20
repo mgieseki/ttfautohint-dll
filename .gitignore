@@ -1,0 +1,7 @@
+.*
+build32/
+build64/
+local32/
+local64/
+src/
+ttfautohint-dll*.zip
