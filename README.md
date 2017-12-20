@@ -23,6 +23,6 @@ Usage
 
 Downloads
 -----------
-Pre-build packages can be downloaded from the release section. They contain the ttfautohint DLL
-together with a corresponding import library and the include files.
+Pre-build packages can be downloaded from the [release section](https://github.com/mgieseki/ttfautohint-dll/releases).
+They contain the ttfautohint DLL together with a corresponding import library and the include files.
 
