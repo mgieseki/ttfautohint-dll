@@ -1,8 +1,8 @@
 # Makefile to build a statically linked DLL of ttfautohint
 # https://www.freetype.org/ttfautohint
 
-FREETYPE_VER   := 2.8.1
-HARFBUZZ_VER   := 1.7.2
+FREETYPE_VER   := 2.9
+HARFBUZZ_VER   := 1.7.4
 TTFAUTOHINT_VER:= 1.8.1
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
