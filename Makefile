@@ -2,7 +2,7 @@
 # https://www.freetype.org/ttfautohint
 
 FREETYPE_VER   := 2.9.1
-HARFBUZZ_VER   := 1.8.4
+HARFBUZZ_VER   := 2.1.1
 TTFAUTOHINT_VER:= 1.8.2
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
