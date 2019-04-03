@@ -1,8 +1,8 @@
 # Makefile to build a statically linked DLL of ttfautohint
 # https://www.freetype.org/ttfautohint
 
-FREETYPE_VER   := 2.9.1
-HARFBUZZ_VER   := 2.1.1
+FREETYPE_VER   := 2.10.0
+HARFBUZZ_VER   := 2.4.0
 TTFAUTOHINT_VER:= 1.8.2
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
@@ -95,7 +95,8 @@ $(BUILDDIR)/$(FREETYPE_FNAME)/Makefile: src/$(FREETYPE_FNAME)/configure
 		LDFLAGS="$(LDFLAGS)"
 
 src/$(FREETYPE_FNAME)/configure:
-	wget https://download.savannah.gnu.org/releases/freetype/$(FREETYPE_FNAME).tar.bz2
+	wget downloads.sourceforge.net/project/freetype/freetype2/$(FREETYPE_VER)/$(FREETYPE_FNAME).tar.bz2
+#	wget https://download.savannah.gnu.org/releases/freetype/$(FREETYPE_FNAME).tar.bz2
 	mkdir -p src
 	tar xjf $(FREETYPE_FNAME).tar.bz2 -C src
 	rm -f $(FREETYPE_FNAME).tar.bz2
