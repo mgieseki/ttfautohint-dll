@@ -1,8 +1,8 @@
 # Makefile to build a statically linked DLL of ttfautohint
 # https://www.freetype.org/ttfautohint
 
-FREETYPE_VER   := 2.10.0
-HARFBUZZ_VER   := 2.4.0
+FREETYPE_VER   := 2.10.1
+HARFBUZZ_VER   := 2.6.1
 TTFAUTOHINT_VER:= 1.8.3
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
@@ -95,11 +95,11 @@ $(BUILDDIR)/$(FREETYPE_FNAME)/Makefile: src/$(FREETYPE_FNAME)/configure
 		LDFLAGS="$(LDFLAGS)"
 
 src/$(FREETYPE_FNAME)/configure:
-	wget downloads.sourceforge.net/project/freetype/freetype2/$(FREETYPE_VER)/$(FREETYPE_FNAME).tar.bz2
-#	wget https://download.savannah.gnu.org/releases/freetype/$(FREETYPE_FNAME).tar.bz2
+#	wget downloads.sourceforge.net/project/freetype/freetype2/$(FREETYPE_VER)/$(FREETYPE_FNAME).tar.bz2
+	wget https://download.savannah.gnu.org/releases/freetype/$(FREETYPE_FNAME).tar.gz
 	mkdir -p src
-	tar xjf $(FREETYPE_FNAME).tar.bz2 -C src
-	rm -f $(FREETYPE_FNAME).tar.bz2
+	tar xf $(FREETYPE_FNAME).tar.gz -C src
+	rm -f $(FREETYPE_FNAME).tar.gz
 
 # -------------------
 # build libharfbuzz.a
@@ -130,9 +130,9 @@ $(BUILDDIR)/$(HARFBUZZ_FNAME)/Makefile: $(LIBDIR)/libfreetype.a src/$(HARFBUZZ_F
 		FREETYPE_LIBS="$(LDFLAGS) -lfreetype"
 
 src/$(HARFBUZZ_FNAME)/configure:
-	wget https://www.freedesktop.org/software/harfbuzz/release/$(HARFBUZZ_FNAME).tar.bz2
-	tar xjf $(HARFBUZZ_FNAME).tar.bz2 -C src
-	rm -f $(HARFBUZZ_FNAME).tar.bz2
+	wget https://github.com/harfbuzz/harfbuzz/releases/download/$(HARFBUZZ_VER)/$(HARFBUZZ_FNAME).tar.xz
+	tar xf $(HARFBUZZ_FNAME).tar.xz -C src
+	rm -f $(HARFBUZZ_FNAME).tar.xz
 
 # ----------------------
 # build libttfautohint.a
@@ -163,7 +163,7 @@ $(BUILDDIR)/$(TTFAUTOHINT_FNAME)/Makefile: src/$(TTFAUTOHINT_FNAME)/configure
 
 src/$(TTFAUTOHINT_FNAME)/configure: src/ttfautohint/bootstrap
 	wget https://download.savannah.gnu.org/releases/freetype/$(TTFAUTOHINT_FNAME).tar.gz
-	tar xzf $(TTFAUTOHINT_FNAME).tar.gz -C src
+	tar xf $(TTFAUTOHINT_FNAME).tar.gz -C src
 	rm -f $(TTFAUTOHINT_FNAME).tar.gz
 
 clean:
