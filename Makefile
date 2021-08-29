@@ -1,9 +1,9 @@
 # Makefile to build a statically linked DLL of ttfautohint
 # https://www.freetype.org/ttfautohint
 
-FREETYPE_VER   := 2.10.1
-HARFBUZZ_VER   := 2.6.1
-TTFAUTOHINT_VER:= 1.8.3
+FREETYPE_VER   := 2.11.0
+HARFBUZZ_VER   := 2.9.0
+TTFAUTOHINT_VER:= 1.8.4
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
 HARFBUZZ_FNAME := harfbuzz-$(HARFBUZZ_VER)
@@ -143,28 +143,33 @@ $(LIBDIR)/libttfautohint.a: $(LIBDIR)/libfreetype.a $(LIBDIR)/libharfbuzz.a $(BU
 	$(MAKE) -C $(BUILDDIR)/$(TTFAUTOHINT_FNAME) install
 	strip $(PREFIX)/bin/ttfautohint.exe
 
-$(BUILDDIR)/$(TTFAUTOHINT_FNAME)/Makefile: src/$(TTFAUTOHINT_FNAME)/configure
+$(BUILDDIR)/$(TTFAUTOHINT_FNAME)/Makefile: $(BUILDDIR)/$(TTFAUTOHINT_FNAME)/configure
 	mkdir -p $(dir $@)
 	cd $(dir $@); \
-	$(ROOT)/src/$(TTFAUTOHINT_FNAME)/$(CONFIGURE) \
+	./$(CONFIGURE) \
 		--disable-dependency-tracking \
 		--disable-shared \
 		--enable-static \
 		--without-qt \
 		--without-doc \
 		--prefix="$(PREFIX)" \
-		--with-freetype-config="$(PREFIX)/bin/freetype-config" \
 		CFLAGS="$(CPPFLAGS) $(CFLAGS)" \
 		CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS) -I$(BUILDDIR)/$(TTFAUTOHINT_FNAME)/lib" \
 		LDFLAGS="$(LDFLAGS)" \
 		PKG_CONFIG=true \
 		HARFBUZZ_CFLAGS="$(CPPFLAGS)/harfbuzz" \
-		HARFBUZZ_LIBS="$(LDFLAGS) -lharfbuzz"
+		HARFBUZZ_LIBS="$(LDFLAGS) -lharfbuzz" \
+		FREETYPE_CFLAGS="$(CPPFLAGS)/freetype2" \
+		FREETYPE_LIBS="$(LDFLAGS) -lfreetype"
 
-src/$(TTFAUTOHINT_FNAME)/configure: src/ttfautohint/bootstrap
+src/$(TTFAUTOHINT_FNAME)/configure:
 	wget https://download.savannah.gnu.org/releases/freetype/$(TTFAUTOHINT_FNAME).tar.gz
 	tar xf $(TTFAUTOHINT_FNAME).tar.gz -C src
 	rm -f $(TTFAUTOHINT_FNAME).tar.gz
+
+$(BUILDDIR)/$(TTFAUTOHINT_FNAME)/configure: src/$(TTFAUTOHINT_FNAME)/configure
+	mkdir -p $(dir $@)
+	cp -rp $(dir $<)/* $(dir $@)
 
 clean:
 	rm -rf $(BUILDDIR)
