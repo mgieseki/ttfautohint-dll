@@ -1,8 +1,8 @@
 # Makefile to build a statically linked DLL of ttfautohint
 # https://www.freetype.org/ttfautohint
 
-FREETYPE_VER   := 2.11.0
-HARFBUZZ_VER   := 2.9.0
+FREETYPE_VER   := 2.12.1
+HARFBUZZ_VER   := 5.1.0
 TTFAUTOHINT_VER:= 1.8.4
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
@@ -123,7 +123,7 @@ $(BUILDDIR)/$(HARFBUZZ_FNAME)/Makefile: $(LIBDIR)/libfreetype.a src/$(HARFBUZZ_F
 		--enable-static \
 		--disable-shared \
 		CFLAGS="$(CPPFLAGS) $(CFLAGS)" \
-		CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS)" \
+		CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS) -Wa,-mbig-obj" \
 		LDFLAGS="$(LDFLAGS)" \
 		PKG_CONFIG=true \
 		FREETYPE_CFLAGS="$(CPPFLAGS)/freetype2" \
