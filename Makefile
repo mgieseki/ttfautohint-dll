@@ -18,11 +18,11 @@ endif
 CONFIGURE := configure
 ifndef HOST
 	CPP := cpp
-	DLLWRAP := dllwrap
+	GCC := gcc
 	STRIP := strip
 else
 	CPP := $(HOST)-cpp
-	DLLWRAP := $(HOST)-dllwrap
+	GCC := $(HOST)-gcc
 	STRIP := $(HOST)-strip
 	CONFIGURE += --host=$(HOST)
 endif
@@ -65,9 +65,9 @@ dist: $(PREFIX)/bin/ttfautohint.dll
 #------------------------------------------------------------------------------
 
 $(PREFIX)/bin/ttfautohint.dll: ttfautohint.def $(LIBS)
-	$(DLLWRAP) --def $< --dllname $(notdir $@) --output-lib $(notdir $@).a $(LIBS)
-	mv $(notdir $@) $@
-	mv $(notdir $@).a $(LIBDIR)
+	$(GCC) -shared -o $(notdir $@) -Wl,--out-implib,$(notdir $@).a $< $(LIBS)
+	cp $(notdir $@) $@
+	cp $(notdir $@).a $(LIBDIR)
 	$(STRIP) $@
 
 # --------------------
