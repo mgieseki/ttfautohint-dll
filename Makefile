@@ -2,7 +2,7 @@
 # https://www.freetype.org/ttfautohint
 
 FREETYPE_VER   := 2.12.1
-HARFBUZZ_VER   := 5.1.0
+HARFBUZZ_VER   := 6.0.0
 TTFAUTOHINT_VER:= 1.8.4
 
 FREETYPE_FNAME := freetype-$(FREETYPE_VER)
@@ -117,7 +117,6 @@ $(BUILDDIR)/$(HARFBUZZ_FNAME)/Makefile: $(LIBDIR)/libfreetype.a src/$(HARFBUZZ_F
 		--disable-gtk-doc-html \
 		--with-glib=no \
 		--with-cairo=no \
-		--with-fontconfig=no \
 		--with-icu=no \
 		--prefix=$(PREFIX) \
 		--enable-static \
