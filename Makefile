@@ -66,8 +66,8 @@ dist: $(PREFIX)/bin/ttfautohint.dll
 
 $(PREFIX)/bin/ttfautohint.dll: ttfautohint.def $(LIBS)
 	$(GCC) -shared -o $(notdir $@) -Wl,--out-implib,$(notdir $@).a $< $(LIBS)
-	cp $(notdir $@) $@
-	cp $(notdir $@).a $(LIBDIR)
+	mv $(notdir $@) $@
+	mv $(notdir $@).a $(LIBDIR)
 	$(STRIP) $@
 
 # --------------------
